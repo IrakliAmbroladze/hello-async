@@ -1,8 +1,8 @@
-use std::future::Future;
 use trpl::Html;
 
 fn main() {
-    println!("Hello, world!");
+    let args: Vec<String> = std::env::args().collect();
+    println!("{:#?}", args);
 }
 
 fn page_title(url: &str) -> impl Future<Output = Option<String>> {
