@@ -11,9 +11,10 @@ fn main() {
         ];
         for val in vals {
             tx.send(val).unwrap();
-            trpl::sleep(Duration::from_millis(500)).await
+            trpl::sleep(Duration::from_millis(500)).await;
         }
-        let received = rx.recv().await.unwrap();
-        println!("Got {received}")
+        while let Some(value) = rx.recv().await {
+            println!("received '{value}'");
+        }
     });
 }
