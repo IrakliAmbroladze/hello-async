@@ -36,6 +36,7 @@ fn main() {
                 trpl::sleep(Duration::from_millis(500)).await;
             }
         };
+        let futures = vec![tx1_fut, rx_fut, tx_fut];
         trpl::join!(tx1_fut, tx_fut, rx_fut);
     });
 }
