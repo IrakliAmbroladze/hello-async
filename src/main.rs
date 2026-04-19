@@ -1,3 +1,4 @@
+use std::pin::Pin;
 use std::time::Duration;
 
 fn main() {
@@ -36,8 +37,8 @@ fn main() {
                 trpl::sleep(Duration::from_millis(500)).await;
             }
         };
-        let futures: Vec<Box<dyn Future<Output = ()>>> =
-            vec![Box::new(tx1_fut), Box::new(rx_fut), Box::new(tx_fut)];
+        let futures: Vec<Pin<Box<dyn Future<Output = ()>>>> =
+            vec![Box::pin(tx1_fut), Box::pin(rx_fut), Box::pin(tx_fut)];
         trpl::join_all(futures).await;
     });
 }
