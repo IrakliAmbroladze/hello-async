@@ -16,3 +16,8 @@ fn main() {
         trpl::race(slow, fast).await;
     })
 }
+
+fn slow(name: &str, ms: u64) {
+    trpl::sleep(Duration::from_millis(ms));
+    println!("'{name}' ran for {ms}ms")
+}
