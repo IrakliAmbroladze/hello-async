@@ -1,10 +1,18 @@
+use std::time::Duration;
 fn main() {
     trpl::run(async {
-        let a = async { 1u32 };
-        let b = async { "Hello!" };
-        let c = async { true };
+        let slow = async {
+            println!("'slow' started.");
+            trpl::sleep(Duration::from_millis(100)).await;
+            println!("'slow' finished.");
+        };
 
-        let (a_result, b_result, c_result) = trpl::join!(a, b, c);
-        println!("{a_result}, {b_result}, {c_result}")
+        let fast = async {
+            println!("'fast' started.");
+            trpl::sleep(Duration::from_millis(50)).await;
+            println!("'fast' finished.");
+        };
+
+        trpl::race(slow, fast).await;
     })
 }
