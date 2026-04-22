@@ -10,7 +10,10 @@ fn main() {
         }
         .await;
         let time = Instant::now() - start;
-        println!("'sleep' took {:?}ns to finish", time);
+        println!(
+            "'sleep' version finished after {} seconds",
+            time.as_secs_f32()
+        );
         let start = Instant::now();
         async {
             for _ in 1..1000 {
@@ -19,6 +22,9 @@ fn main() {
         }
         .await;
         let time = Instant::now() - start;
-        println!("'yield' took {:?}ns to finish", time);
+        println!(
+            "'yield' version finished after {} seconds",
+            time.as_secs_f32()
+        );
     })
 }
