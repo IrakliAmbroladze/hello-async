@@ -1,14 +1,14 @@
-use std::time::{Duration, Instant};
+use std::time::Duration;
 
 use trpl::Either;
 fn main() {
     trpl::run(async {
         let slow = async {
-            trpl::sleep(Duration::from_millis(100)).await;
+            trpl::sleep(Duration::from_secs(5)).await;
             "I finished!"
         };
 
-        match timeout(slow, Duration::from_millis(10)).await {
+        match timeout(slow, Duration::from_secs(2)).await {
             Ok(message) => println!("Succeeded with '{message}'"),
             Err(duration) => {
                 println!("Failed after {} seconds", duration.as_secs())
