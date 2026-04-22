@@ -1,4 +1,6 @@
 use std::time::{Duration, Instant};
+
+use trpl::Either;
 fn main() {
     trpl::run(async {
         let slow = async {
@@ -16,5 +18,8 @@ fn main() {
 }
 
 async fn timeout<F: Future>(future_to_try: F, max_time: Duration) -> Result<F::Output, Duration> {
-    // Here is where our implementation will go!
+    match trpl::race(future_to_try, trpl::sleep(max_time)).await {
+        Either::Left(output) => Ok(output),
+        Either::Right(_) => Err(max_time),
+    }
 }
