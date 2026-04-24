@@ -8,7 +8,7 @@ fn main() {
         while let Some(result) = messages.next().await {
             match result {
                 Ok(message) => println!("Message is: {message}"),
-                Err(error) => eprintln!("{error}"),
+                Err(reason) => eprintln!("Problem: {reason:?}"),
             }
         }
     });
