@@ -33,13 +33,14 @@ fn get_messages() -> impl Stream<Item = String> {
 
             if let Err(send_error) = tx.send(format!("Message: '{message}'")) {
                 eprintln!("Cannot send message '{message}': {send_error}");
+                break;
             }
         }
     });
     ReceiverStream::new(rx)
 }
 
-fn get_intervals() -> impl Stream<Item = i32> {
+fn get_intervals() -> impl Stream<Item = u32> {
     let (tx, rx) = trpl::channel();
 
     trpl::spawn_task(async move {
@@ -49,7 +50,8 @@ fn get_intervals() -> impl Stream<Item = i32> {
             count += 1;
 
             if let Err(send_error) = tx.send(count) {
-                eprintln!("Cannot send interval '{count}': {send_error}")
+                eprintln!("Cannot send interval '{count}': {send_error}");
+                break;
             };
         }
     });
