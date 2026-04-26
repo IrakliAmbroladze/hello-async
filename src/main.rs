@@ -5,7 +5,14 @@ fn main() {
 
     trait Stream {
         type Item;
-
         fn poll_next(self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Option<Self::Item>>;
+    }
+
+    trait StreamExt: Stream {
+        async fn next(&mut self) -> Option<Self::Item>
+        where
+            Self: Unpin;
+
+        // other methods...
     }
 }
